@@ -23,7 +23,7 @@ You can also query these endpoints with GET requests to find out whats currently
 ### General operation
 
  1. Startup *sentinel-broker*.
- 1. Startup the Sentinel Redis system components.
+ 2. Startup the Sentinel Redis system components.
    * Redis
      1. Before start, check for a working Sentinel
      1. Query it for master status
@@ -34,11 +34,11 @@ You can also query these endpoints with GET requests to find out whats currently
      1. Query it for master status
      1. Configure self to monitor that master
      1. **If not**, send **POST** request to *sentinel-broker* and start in standalone mode
- 1. Once *sentinel-broker* receives **POST** requests from 3 Sentinels and 2 Redis instances it configures them as a Sentinel controlled Redis HA system.
+ 3. Once *sentinel-broker* receives **POST** requests from 3 Sentinels and 2 Redis instances it configures them as a Sentinel controlled Redis HA system.
    * The first Redis instance to have called the endpoint gets to be master
    * The other gets slaved to it
    * The Sentinels all get attached to the new master
- 1. *sentinel-broker* exits
+ 4. *sentinel-broker* exits
 
  Assuming you meet the assumptions and rules workflow above the system will be self healing should a component restart.
 
