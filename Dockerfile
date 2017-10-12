@@ -5,7 +5,7 @@ ADD . /src
 
 RUN cd /src \
     && go get -d -v \
-    && CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o app .
+    && CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-extldflags "-static"' -o app .
 
 # Run image
 FROM alpine
