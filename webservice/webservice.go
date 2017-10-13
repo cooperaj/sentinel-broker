@@ -13,7 +13,8 @@ import (
 func Run(redis *redis.Cluster) {
 	gin.DisableConsoleColor()
 
-	r := gin.Default()
+	r := gin.New()
+	r.Use(gin.LoggerWithWriter(gin.DefaultWriter))
 
 	r.GET("/config", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
