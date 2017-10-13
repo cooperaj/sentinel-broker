@@ -23,7 +23,7 @@ func Run(redis *redis.Cluster) {
 	})
 
 	r.POST("/sentinel", func(c *gin.Context) {
-		redis.AddSentinel(c.ClientIP())
+		go redis.AddSentinel(c.ClientIP())
 
 		c.JSON(http.StatusOK, gin.H{
 			"message": "ok",
@@ -37,7 +37,7 @@ func Run(redis *redis.Cluster) {
 	})
 
 	r.POST("/redis", func(c *gin.Context) {
-		redis.AddRedis(c.ClientIP())
+		go redis.AddRedis(c.ClientIP())
 
 		c.JSON(http.StatusOK, gin.H{
 			"message": "ok",
