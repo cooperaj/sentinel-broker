@@ -31,10 +31,10 @@ func IsWorkingInstance(client *redis.Client) (bool, error) {
 			time.Sleep(2 * time.Second)
 		}
 
-		return true, err // infinite retry
+		return attempt < 10, err
 	})
 
-	if err != nil {
+	if err == nil {
 		return true, err
 	}
 
