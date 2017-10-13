@@ -1,88 +1,39 @@
 package main
 
 import (
-	"log"
-	"net"
-	"net/http"
+	"encoding/json"
+	"fmt"
+	"os"
 
-	"github.com/gin-gonic/gin"
+	cluster "github.com/cooperaj/sentinel-broker/redis"
+	ws "github.com/cooperaj/sentinel-broker/webservice"
 )
 
-// Sentinel class
-type Sentinel struct {
-	IP string `json:"ip"`
+func loadConfiguration(file string) cluster.Config {
+	var config cluster.Config
+	configFile, err := os.Open(file)
+	defer configFile.Close()
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	jsonParser := json.NewDecoder(configFile)
+	jsonParser.Decode(&config)
+
+	authPass := os.Getenv("REDIS_PASSWORD")
+	if authPass != "" {
+		config.Redis.Password = authPass
+	}
+
+	return config
 }
-
-// Sentinels Our list of active Sentinel instances
-var Sentinels = []Sentinel{}
-
-// Redis class
-type Redis struct {
-	IP string `json:"ip"`
-}
-
-// Redii Our list of active Redis instances
-var Redii = []Redis{}
 
 func main() {
-	gin.DisableConsoleColor()
+	configuration := loadConfiguration("sentinel-config.json")
+	redisCluster := cluster.NewCluster(configuration)
 
-	r := gin.Default()
-
-	r.POST("/sentinel", func(c *gin.Context) {
-		addSentinel(c.ClientIP())
-
-		go ShouldSetupSentinels(Sentinels, Redii)
-
-		c.JSON(http.StatusOK, gin.H{
-			"message": "ok",
-		})
-	})
-
-	r.GET("/sentinel", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"sentinels": Sentinels,
-		})
-	})
-
-	r.POST("/redis", func(c *gin.Context) {
-		addRedis(c.ClientIP())
-
-		go ShouldSetupSentinels(Sentinels, Redii)
-
-		c.JSON(http.StatusOK, gin.H{
-			"message": "ok",
-		})
-	})
-
-	r.GET("/redis", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"redii": Redii,
-		})
-	})
-
-	server := &http.Server{Handler: r}
-	l, err := net.Listen("tcp4", ":8080")
-	if err != nil {
-		log.Fatal(err)
+	if redisCluster.IsFunctional() {
+		os.Exit(0)
 	}
 
-	err = server.Serve(l)
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
-func addSentinel(ip string) {
-	s := Sentinel{
-		IP: ip,
-	}
-	Sentinels = append(Sentinels, s)
-}
-
-func addRedis(ip string) {
-	r := Redis{
-		IP: ip,
-	}
-	Redii = append(Redii, r)
+	ws.Run(redisCluster)
 }

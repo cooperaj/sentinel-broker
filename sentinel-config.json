@@ -1,0 +1,18 @@
+{
+    "master": "mymaster",
+    "redis": {
+        "hostname": "redis",
+        "port": 6379,
+        "password": ""
+    },
+    "sentinel": {
+        "hostname": "redis-sentinel",
+        "port": 26379,
+        "config": {
+            "down-after-milliseconds": 5000,
+            "failover-timeout": 10000,
+            "parallel-syncs": 1,
+            "client-reconfig-script": "/reconfig.sh"
+        }
+    }
+}
