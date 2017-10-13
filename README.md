@@ -52,3 +52,9 @@ $ go get
 $ go get github.com/mitchellh/gox
 $ gox -os="linux darwin" -arch="amd64 arm64" -osarch="\!darwin/arm64" -ldflags="-s -w"
 ```
+
+### Docker
+```shell
+$ # Have docker installed and working
+$ docker build -t cooperaj/sentinel-broker .
+```
