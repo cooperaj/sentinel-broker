@@ -13,11 +13,11 @@ FROM alpine:latest
 ARG BUILD_DATE
 ARG VCS_REF
 
-LABEL maintainer = "Adam Cooper <adam@networkpie.co.uk>" \
-      org.label-schema.schema-version = "1.0" \
-      org.label-schema.name = "Sentinel Broker" \
-      org.label-schema.vcs-url = "https://github.com/cooperaj/sentinel-broker.git" \
-      org.label-schema.version = "0.8.9" \
+LABEL maintainer="Adam Cooper <adam@networkpie.co.uk>" \
+      org.label-schema.schema-version="1.0" \
+      org.label-schema.name="Sentinel Broker" \
+      org.label-schema.vcs-url="https://github.com/cooperaj/sentinel-broker.git" \
+      org.label-schema.version="0.8.9" \
       org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.vcs-ref=$VCS_REF
 
