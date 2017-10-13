@@ -18,7 +18,7 @@ func AttachSentinelToMaster(sentinel *redis.Client, masterIP string, cluster *Cl
 		sentinel,
 		cluster.Config.Master,
 		masterIP,
-		string(cluster.Config.Redis.Port),
+		fmt.Sprintf("%d", cluster.Config.Redis.Port),
 	).Err()
 
 	if err != nil {

@@ -35,7 +35,7 @@ func setupSentinels(masterIP string, cluster *Cluster) {
 	for _, sentinel := range cluster.Sentinels {
 		client := ConnectToClient(
 			sentinel.IP,
-			string(cluster.Config.Sentinel.Port),
+			fmt.Sprintf("%d", cluster.Config.Sentinel.Port),
 			cluster.Config,
 		)
 
@@ -53,7 +53,7 @@ func setupSentinels(masterIP string, cluster *Cluster) {
 func setupSlave(slaveIP string, masterIP string, cluster *Cluster) {
 	client := ConnectToClient(
 		slaveIP,
-		string(cluster.Config.Redis.Port),
+		fmt.Sprintf("%d", cluster.Config.Redis.Port),
 		cluster.Config,
 	)
 
@@ -66,7 +66,7 @@ func setupSlave(slaveIP string, masterIP string, cluster *Cluster) {
 		panic(fmt.Sprintf("Slave (%s) not reachable", client.String()))
 	}
 
-	err = client.SlaveOf(masterIP, string(cluster.Config.Redis.Port)).Err()
+	err = client.SlaveOf(masterIP, fmt.Sprintf("%v", cluster.Config.Redis.Port)).Err()
 	if err != nil {
 		panic(err.Error())
 	}
@@ -75,7 +75,7 @@ func setupSlave(slaveIP string, masterIP string, cluster *Cluster) {
 func verifyMaster(masterIP string, cluster *Cluster) {
 	client := ConnectToClient(
 		masterIP,
-		string(cluster.Config.Redis.Port),
+		fmt.Sprintf("%d", cluster.Config.Redis.Port),
 		cluster.Config,
 	)
 
