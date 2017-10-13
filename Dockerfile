@@ -1,18 +1,32 @@
 # Build sentinel-broker binary
 FROM golang:1.9 AS build-env
 
-ADD . /src
+ADD . /go/src/github.com/cooperaj/sentinel-broker
+WORKDIR /go/src/github.com/cooperaj/sentinel-broker
 
-RUN cd /src \
-    && go get -d -v \
+RUN go get -d -v ./... \
     && CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-extldflags "-static"' -o app .
 
 # Run image
-FROM alpine
+FROM alpine:latest
 
-COPY --from=build-env /src/app /app/sentinel-broker
+ARG BUILD_DATE
+ARG VCS_REF
+
+LABEL maintainer = "Adam Cooper <adam@networkpie.co.uk>" \
+      org.label-schema.schema-version = "1.0" \
+      org.label-schema.name = "Sentinel Broker" \
+      org.label-schema.vcs-url = "https://github.com/cooperaj/sentinel-broker.git" \
+      org.label-schema.version = "0.8.9" \
+      org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.vcs-ref=$VCS_REF
+
+COPY --from=build-env /go/src/github.com/cooperaj/sentinel-broker/app /app/sentinel-broker
+COPY --from=build-env /go/src/github.com/cooperaj/sentinel-broker/sentinel-config.json /app/sentinel-config.json
 
 WORKDIR /app
 EXPOSE 8080
 
-ENTRYPOINT ./sentinel-broker
+CMD ["./sentinel-broker"]
+
+ONBUILD ADD ./sentinel-config.json /app/sentinel-config.json
