@@ -1,7 +1,7 @@
 Sentinel Broker
 --
 
-[![Build Status](https://travis-ci.org/cooperaj/sentinel-broker.svg?branch=master)](https://travis-ci.org/cooperaj/sentinel-broker) [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+[![Build Status](https://travis-ci.org/cooperaj/sentinel-broker.svg?branch=master)](https://travis-ci.org/cooperaj/sentinel-broker) [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php) [![Anchore Image Policy](https://anchore.io/service/badges/policy/903aa3794041b1d1c4abb8d4ba9068373c4272689d84ffa4b0ebe24632989084?registry=dockerhub&repository=cooperaj/sentinel-broker&tag=latest)](https://anchore.io)
 
 ### Whats this?
 *sentinel-broker* is a small Go application that runs as a webservice. In effect it acts as a service discovery layer for your Sentinel based Redis system. You could probably script this all out with etcd and such but I didn't want to run all that for this one thing.
