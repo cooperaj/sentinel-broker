@@ -2,6 +2,7 @@ package redis
 
 import (
 	"fmt"
+	"net"
 
 	redis "github.com/go-redis/redis"
 )
@@ -60,7 +61,7 @@ func ConfigureSentinel(client *redis.Client, cluster *Cluster) error {
 // ConnectToSentinel Connects to a Redis server
 func ConnectToSentinel(ip string, port string, config Config) *redis.Client {
 	options := &redis.Options{
-		Addr: ip + ":" + port,
+		Addr: net.JoinHostPort(ip, port),
 	}
 
 	return ConnectToClient(options)

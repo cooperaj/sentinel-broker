@@ -1,6 +1,7 @@
 package redis
 
 import (
+	"net"
 	"time"
 
 	logging "github.com/cooperaj/sentinel-broker/logging"
@@ -16,7 +17,7 @@ func ConnectToClient(options *redis.Options) *redis.Client {
 // ConnectToRedis Connects to a Redis server
 func ConnectToRedis(ip string, port string, config Config) *redis.Client {
 	options := &redis.Options{
-		Addr: ip + ":" + port,
+		Addr: net.JoinHostPort(ip, port),
 	}
 
 	if config.Redis.Password != "" {
