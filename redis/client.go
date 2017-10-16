@@ -1,9 +1,9 @@
 package redis
 
 import (
-	"log"
 	"time"
 
+	logging "github.com/cooperaj/sentinel-broker/logging"
 	redis "github.com/go-redis/redis"
 	try "github.com/matryer/try"
 )
@@ -31,9 +31,9 @@ func IsWorkingInstance(client *redis.Client) (bool, error) {
 	err := try.Do(func(attempt int) (bool, error) {
 		pong, err := client.Ping().Result()
 		if err != nil && pong != "PONG" {
-			log.Printf("Client (%s) not ready, will retry", client.Options().Addr)
+			logging.Logf("Client (%s) not ready, will retry", client.Options().Addr)
 		} else {
-			log.Printf("Client (%s) ready", client.Options().Addr)
+			logging.Logf("Client (%s) ready", client.Options().Addr)
 		}
 
 		if err != nil {

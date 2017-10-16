@@ -3,8 +3,10 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+
 	"os"
 
+	logging "github.com/cooperaj/sentinel-broker/logging"
 	cluster "github.com/cooperaj/sentinel-broker/redis"
 	ws "github.com/cooperaj/sentinel-broker/webservice"
 )
@@ -28,11 +30,16 @@ func loadConfiguration(file string) cluster.Config {
 }
 
 func main() {
+	logging.Create("sentinel-broker: ")
+
 	configuration := loadConfiguration("sentinel-config.json")
 	redisCluster := cluster.NewCluster(configuration)
 
-	if redisCluster.IsFunctional() {
+	if working, err := redisCluster.IsFunctional(); working {
+		logging.Logf("%s", "Sentinel cluster operational, exiting...")
 		os.Exit(0)
+	} else {
+		logging.Logf("%s, continuing...", err)
 	}
 
 	ws.Run(redisCluster)

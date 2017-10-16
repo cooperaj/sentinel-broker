@@ -1,5 +1,14 @@
 package redis
 
+import (
+	"errors"
+	"fmt"
+	"net"
+
+	logging "github.com/cooperaj/sentinel-broker/logging"
+	redis "github.com/go-redis/redis"
+)
+
 // Cluster information that
 type Cluster struct {
 	Config Config
@@ -22,6 +31,8 @@ type Redis struct {
 func NewCluster(config Config) *Cluster {
 	c := new(Cluster)
 	c.Config = config
+
+	redis.SetLogger(logging.NullLogger)
 	return c
 }
 

@@ -5,6 +5,7 @@ import (
 	"net"
 	"net/http"
 
+	logging "github.com/cooperaj/sentinel-broker/logging"
 	"github.com/cooperaj/sentinel-broker/redis"
 	"github.com/gin-gonic/gin"
 )
@@ -12,9 +13,9 @@ import (
 // Run Creates a webservice that listens for redis and sentinel registrations
 func Run(redis *redis.Cluster) {
 	gin.DisableConsoleColor()
+	gin.SetMode(gin.ReleaseMode)
 
 	r := gin.New()
-	r.Use(gin.LoggerWithWriter(gin.DefaultWriter))
 
 	r.GET("/healthcheck", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
@@ -30,6 +31,7 @@ func Run(redis *redis.Cluster) {
 
 	r.POST("/sentinel", func(c *gin.Context) {
 		go redis.AddSentinel(c.ClientIP())
+		logging.Logf("Sentinel registered at %s", c.ClientIP())
 
 		c.JSON(http.StatusOK, gin.H{
 			"message": "ok",
@@ -44,6 +46,7 @@ func Run(redis *redis.Cluster) {
 
 	r.POST("/redis", func(c *gin.Context) {
 		go redis.AddRedis(c.ClientIP())
+		logging.Logf("Redis server registered at %s", c.ClientIP())
 
 		c.JSON(http.StatusOK, gin.H{
 			"message": "ok",
