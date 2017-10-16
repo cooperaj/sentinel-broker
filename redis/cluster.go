@@ -57,8 +57,28 @@ func (c *Cluster) AddRedis(ip string) {
 }
 
 // IsFunctional Test the cluster to see if it has a defined and functioning master
-func (c *Cluster) IsFunctional() bool {
-	//var sentinel = c.Config.Sentinel.Hostname
+func (c *Cluster) IsFunctional() (bool, error) {
+	options := &redis.FailoverOptions{
+		MasterName: c.Config.Master,
+		SentinelAddrs: []string{
+			net.JoinHostPort(
+				c.Config.Sentinel.Hostname,
+				fmt.Sprintf("%d", c.Config.Sentinel.Port),
+			),
+		},
+	}
 
-	return false
+	if c.Config.Redis.Password != "" {
+		options.Password = c.Config.Redis.Password
+	}
+
+	failoverClient := redis.NewFailoverClient(options)
+
+	info, err := failoverClient.Ping().Result()
+
+	if info != "PONG" {
+		err = errors.New("Sentinel/Redis cluster not functional")
+	}
+
+	return err == nil, err
 }
