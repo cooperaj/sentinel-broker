@@ -16,6 +16,12 @@ func Run(redis *redis.Cluster) {
 	r := gin.New()
 	r.Use(gin.LoggerWithWriter(gin.DefaultWriter))
 
+	r.GET("/healthcheck", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "ok",
+		})
+	})
+
 	r.GET("/config", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"config": redis.Config,
