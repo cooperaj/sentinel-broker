@@ -9,12 +9,21 @@ import (
 )
 
 // ConnectToClient Connects to a Redis server
-func ConnectToClient(ip string, port string, config Config) *redis.Client {
-	client := redis.NewClient(&redis.Options{
-		Addr: ip + ":" + port,
-	})
+func ConnectToClient(options *redis.Options) *redis.Client {
+	return redis.NewClient(options)
+}
 
-	return client
+// ConnectToClient Connects to a Redis server
+func ConnectToRedis(ip string, port string, config Config) *redis.Client {
+	options := &redis.Options{
+		Addr: ip + ":" + port,
+	}
+
+	if config.Redis.Password != "" {
+		options.Password = config.Redis.Password
+	}
+
+	return ConnectToClient(options)
 }
 
 // IsWorkingInstance Checks that a registered IP is up and running. Blocking

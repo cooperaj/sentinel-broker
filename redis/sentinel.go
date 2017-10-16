@@ -29,23 +29,41 @@ func AttachSentinelToMaster(sentinel *redis.Client, masterIP string, cluster *Cl
 }
 
 // ConfigureSentinel Configures the sentinel with settings
-func ConfigureSentinel(client *redis.Client, config Config) error {
-	err := SentinelSetCommand(client, "mymaster", "down-after-milliseconds", "1000").Err()
-	if err != nil {
-		return err
+func ConfigureSentinel(client *redis.Client, cluster *Cluster) error {
+	for command, rawValue := range cluster.Config.Sentinel.Config {
+		value, err := cluster.Config.ConvertToString(rawValue)
+		if err != nil {
+			return err
+		}
+
+		err = SentinelSetCommand(client, cluster.Config.Master, command, value).Err()
+		if err != nil {
+			return err
+		}
 	}
 
-	err = SentinelSetCommand(client, "mymaster", "failover-timeout", "1000").Err()
-	if err != nil {
-		return err
+	if cluster.Config.Redis.Password != "" {
+		err := SentinelSetCommand(
+			client,
+			cluster.Config.Master,
+			"auth-pass",
+			cluster.Config.Redis.Password,
+		).Err()
+		if err != nil {
+			return err
+		}
 	}
 
-	err = SentinelSetCommand(client, "mymaster", "parallel-syncs", "1").Err()
-	if err != nil {
-		return err
+	return nil
+}
+
+// ConnectToClient Connects to a Redis server
+func ConnectToSentinel(ip string, port string, config Config) *redis.Client {
+	options := &redis.Options{
+		Addr: ip + ":" + port,
 	}
 
-	return err
+	return ConnectToClient(options)
 }
 
 // SentinelMonitorCommand Configures sentinal intance to monitor a new master
