@@ -57,7 +57,7 @@ func ConfigureSentinel(client *redis.Client, cluster *Cluster) error {
 	return nil
 }
 
-// ConnectToClient Connects to a Redis server
+// ConnectToSentinel Connects to a Redis server
 func ConnectToSentinel(ip string, port string, config Config) *redis.Client {
 	options := &redis.Options{
 		Addr: ip + ":" + port,

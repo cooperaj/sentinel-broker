@@ -13,7 +13,7 @@ func ConnectToClient(options *redis.Options) *redis.Client {
 	return redis.NewClient(options)
 }
 
-// ConnectToClient Connects to a Redis server
+// ConnectToRedis Connects to a Redis server
 func ConnectToRedis(ip string, port string, config Config) *redis.Client {
 	options := &redis.Options{
 		Addr: ip + ":" + port,
