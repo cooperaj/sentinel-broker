@@ -28,7 +28,7 @@ WORKDIR /app
 EXPOSE 8080
 
 HEALTHCHECK --interval=10s --timeout=2s --start-period=20s \
-    CMD wget -q http://localhost:8080/config || exit 1
+    CMD wget -q http://localhost:8080/healthcheck || exit 1
 
 CMD ["./sentinel-broker"]
 
