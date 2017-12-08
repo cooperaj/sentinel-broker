@@ -9,7 +9,7 @@ RUN go get -u github.com/kardianos/govendor \
     && CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-extldflags "-static"' -o app .
 
 # Run image
-FROM alpine:latest
+FROM scratch
 
 ARG BUILD_DATE
 ARG VCS_REF
