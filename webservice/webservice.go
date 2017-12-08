@@ -25,7 +25,7 @@ func Run(redis *redis.Cluster) {
 
 	r.GET("/config", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
-			"config": redis.Config,
+			"config": &redis.Config,
 		})
 	})
 

@@ -1,25 +1,42 @@
 package redis
 
 import (
+	"encoding/json"
 	"errors"
 	"strconv"
 )
+
+// ConfigRedis Configuration structure of Redis instance
+type ConfigRedis struct {
+	Hostname string `json:"hostname"`
+	Port     int    `json:"port"`
+	Password string `json:"password"`
+}
 
 // Config Configuration structure pulled from JSON file
 type Config struct {
 	Master string `json:"master"`
 
-	Redis struct {
-		Hostname string `json:"hostname"`
-		Port     int    `json:"port"`
-		Password string `json:"password"`
-	} `json:"redis"`
+	Redis ConfigRedis `json:"redis"`
 
 	Sentinel struct {
 		Hostname string                 `json:"hostname"`
 		Port     int                    `json:"port"`
 		Config   map[string]interface{} `json:"config"`
 	} `json:"sentinel"`
+}
+
+// MarshalJSON Converts our password to a blank on output
+func (r *ConfigRedis) MarshalJSON() ([]byte, error) {
+	type Alias ConfigRedis
+
+	return json.Marshal(&struct {
+		Password string `json:"password,omitempty"`
+		*Alias
+	}{
+		Password: "",
+		Alias:    (*Alias)(r),
+	})
 }
 
 // ConvertToString Takes an interface value and ensures it's a string
