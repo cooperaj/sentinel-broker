@@ -5,7 +5,7 @@ import (
 	"net"
 	"net/http"
 
-	logging "github.com/cooperaj/sentinel-broker/logging"
+	"github.com/cooperaj/sentinel-broker/logging"
 	"github.com/cooperaj/sentinel-broker/redis"
 	"github.com/gin-gonic/gin"
 )

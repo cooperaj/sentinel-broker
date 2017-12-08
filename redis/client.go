@@ -4,9 +4,9 @@ import (
 	"net"
 	"time"
 
-	logging "github.com/cooperaj/sentinel-broker/logging"
-	redis "github.com/go-redis/redis"
-	try "github.com/matryer/try"
+	"github.com/cooperaj/sentinel-broker/logging"
+	"github.com/go-redis/redis"
+	"github.com/matryer/try"
 )
 
 // ConnectToClient Connects to a Redis server

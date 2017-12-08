@@ -6,7 +6,7 @@ import (
 
 	"os"
 
-	logging "github.com/cooperaj/sentinel-broker/logging"
+	"github.com/cooperaj/sentinel-broker/logging"
 	cluster "github.com/cooperaj/sentinel-broker/redis"
 	ws "github.com/cooperaj/sentinel-broker/webservice"
 )

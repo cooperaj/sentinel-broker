@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net"
 
-	logging "github.com/cooperaj/sentinel-broker/logging"
-	redis "github.com/go-redis/redis"
+	"github.com/cooperaj/sentinel-broker/logging"
+	"github.com/go-redis/redis"
 )
 
 // Cluster information that

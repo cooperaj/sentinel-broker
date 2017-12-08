@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 
-	redis "github.com/go-redis/redis"
+	"github.com/go-redis/redis"
 )
 
 // AttachSentinelToMaster Configures a sentinel to monitor a master
