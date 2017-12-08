@@ -4,7 +4,8 @@ FROM golang:1.9 AS build-env
 ADD . /go/src/github.com/cooperaj/sentinel-broker
 WORKDIR /go/src/github.com/cooperaj/sentinel-broker
 
-RUN go get -d -v ./... \
+RUN go get -u github.com/kardianos/govendor \
+    && govendor sync \
     && CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-extldflags "-static"' -o app .
 
 # Run image

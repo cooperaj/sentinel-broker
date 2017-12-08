@@ -1,1 +1,3 @@
 sentinel-broker*
+.vscode/*
+vendor/*/
