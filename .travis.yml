@@ -14,4 +14,4 @@ install:
   - govendor sync
 
 after_success:
-  - curl -X POST $BUILD_TRIGGER_URL
+  - '[[ $TRAVIS_BRANCH == "master" ]] && curl -X POST $BUILD_TRIGGER_URL'
