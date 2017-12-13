@@ -11,7 +11,7 @@ before_install:
   - go get -u github.com/kardianos/govendor
 
 install:
-  - govendor sync
+  - govendor sync -v
 
 after_success:
   - '[[ $TRAVIS_BRANCH == "master" ]] && curl -X POST $BUILD_TRIGGER_URL'
