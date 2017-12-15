@@ -4,7 +4,7 @@ matrix:
 
 before_install:
   - gvm install $GO_VERSION -B
-  - gvm use $GO_VERSION
+  - gvm use $GO_VERSION --default
   - go get -u github.com/kardianos/govendor
 
 install:
