@@ -1,0 +1,14 @@
+image: go_builder
+matrix:
+  - env: GO_VERSION=go1.9
+
+before_install:
+  - gvm install $GO_VERSION -B
+  - gvm use $GO_VERSION
+  - go get -u github.com/kardianos/govendor
+
+install:
+  - govendor sync -v
+
+script:
+  - go test -v ./...
