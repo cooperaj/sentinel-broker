@@ -5,11 +5,10 @@ matrix:
 before_install:
   - gvm install $GO_VERSION -B
   - gvm use $GO_VERSION --default
-  - go get -u github.com/kardianos/govendor
+  - go get -u github.com/golang/dep/cmd/dep
 
 install:
-  - env
-  #- govendor sync -v
+  - dep ensure
 
 script:
-  #- go test -v ./...
+  - go test -v ./...
