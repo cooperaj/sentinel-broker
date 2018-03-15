@@ -8,48 +8,46 @@
   revision = "22d885f9ecc78bf4ee5d72b937e4bbcdc58e8cae"
 
 [[projects]]
-  branch = "master"
   name = "github.com/gin-gonic/gin"
-  packages = [".","binding","json","render"]
-  revision = "9e895470ddd40a45f28dbe4e96bfb5e893d54f9e"
+  packages = [".","binding","render"]
+  revision = "d459835d2b077e44f7c9b453505ee29881d5d12d"
+  version = "v1.2"
 
 [[projects]]
   name = "github.com/go-redis/redis"
-  packages = [".","internal","internal/consistenthash","internal/hashtag","internal/pool","internal/proto"]
-  revision = "b879d4e0b950159c63ec69d0ed4604dcd0d97bfd"
+  packages = [".","internal","internal/consistenthash","internal/hashtag","internal/pool","internal/proto","internal/singleflight","internal/util"]
+  revision = "877867d2845fbaf86798befe410b6ceb6f5c29a3"
+  version = "v6.10.2"
 
 [[projects]]
-  branch = "master"
   name = "github.com/golang/protobuf"
   packages = ["proto"]
-  revision = "1e59b77b52bf8e4b449a57e6f79f21226d571845"
+  revision = "925541529c1fa6821df4e44ce2723319eb2be768"
+  version = "v1.0.0"
 
 [[projects]]
-  name = "github.com/json-iterator/go"
-  packages = ["."]
-  revision = "b2a706d14b7bdfa2e2a9b2d8f9a063db6ceb391f"
-
-[[projects]]
-  branch = "master"
   name = "github.com/matryer/try"
   packages = ["."]
-  revision = "9ac251b645a2628ef89dbd2986987cc1299408ff"
+  revision = "312d2599e12e89ca89b52a09597394f449235d80"
+  version = "v1"
 
 [[projects]]
-  branch = "master"
   name = "github.com/mattn/go-isatty"
   packages = ["."]
-  revision = "6ca4dbf54d38eea1a992b3c722a76a5d1c4cb25c"
+  revision = "0360b2af4f38e8d38c7fce2a9f4e702702d73a39"
+  version = "v0.0.3"
 
 [[projects]]
   name = "github.com/ugorji/go"
   packages = ["codec"]
-  revision = "f0aa215a7d653544d39d0e27dfa10fa4b183f397"
+  revision = "9831f2c3ac1068a78f50999a30db84270f647af6"
+  version = "v1.1"
 
 [[projects]]
+  branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "a0f4589a76f1f83070cb9e5613809e1d07b97c13"
+  revision = "cc7307a45468e49eaf2997c890f14aa03a26917b"
 
 [[projects]]
   name = "gopkg.in/go-playground/validator.v8"
@@ -58,14 +56,14 @@
   version = "v8.18.2"
 
 [[projects]]
-  branch = "v2"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
-  revision = "287cf08546ab5e7e37d55a84f7ed3fd1db036de5"
+  revision = "7f97868eec74b32b0982dd158a51a446d1da7eb5"
+  version = "v2.1.1"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "328ea48481324dd228e7804a72fa1e123dd1c1ed1d38c92f7e62bfa975b26acd"
+  inputs-digest = "65b8a7b9bdbc94f3896b3dd595825f0facdbd1ac35da3f66e67b7387e763286c"
   solver-name = "gps-cdcl"
   solver-version = 1

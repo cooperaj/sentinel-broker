@@ -18,12 +18,3 @@
 # [[override]]
 #  name = "github.com/x/y"
 #  version = "2.4.0"
-
-
-[[constraint]]
-  branch = "master"
-  name = "github.com/gin-gonic/gin"
-
-[[constraint]]
-  branch = "master"
-  name = "github.com/matryer/try"
