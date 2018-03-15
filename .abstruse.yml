@@ -1,15 +1,15 @@
 image: go_builder
 matrix:
-  - env: GO_VERSION=go1.9
+  - env: GO_VERSION=go1.9 PROJECT_PATH=github.com/cooperaj/sentinel-broker
 
 before_install:
   - gvm install $GO_VERSION -B
   - gvm use $GO_VERSION --default
-  - gvm linkthis $ABSTRUSE_BUILD_DIR
+  - gvm linkthis $PROJECT_PATH
   - go get -u github.com/golang/dep/cmd/dep
 
 install:
-  - cd $GOPATH/src/$ABSTRUSE_BUILD_DIR && dep ensure -vendor-only
+  - cd $GOPATH/src/$PROJECT_PATH && dep ensure -vendor-only
   - ls $GOPATH/src/github.com
 
 script:
