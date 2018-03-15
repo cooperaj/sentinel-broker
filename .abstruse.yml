@@ -10,7 +10,7 @@ before_install:
 
 install:
   - cd $GOPATH/src/$PROJECT_PATH
-  - pwd
+  - env
   - dep ensure
 
 script:
