@@ -9,6 +9,7 @@ before_install:
   - go get -u github.com/golang/dep/cmd/dep
 
 install:
+  - cd $GOPATH/src/$PROJECT_PATH
   - dep ensure
 
 script:
