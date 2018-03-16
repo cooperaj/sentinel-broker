@@ -18,3 +18,16 @@
 # [[override]]
 #  name = "github.com/x/y"
 #  version = "2.4.0"
+
+
+[[constraint]]
+  name = "github.com/gin-gonic/gin"
+  version = "1.2.0"
+
+[[constraint]]
+  name = "github.com/go-redis/redis"
+  version = "6.10.2"
+
+[[constraint]]
+  name = "github.com/matryer/try"
+  version = "1.0.0"
