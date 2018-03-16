@@ -9,8 +9,6 @@ env:
 
 before_install:
   - go get -u github.com/golang/dep/cmd/dep
-  - go get -u github.com/onsi/ginkgo/ginkgo
-  - go get -u github.com/onsi/gomega/...
 
 install:
   - dep ensure -vendor-only

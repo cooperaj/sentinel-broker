@@ -7,8 +7,6 @@ before_install:
   - gvm use $GO_VERSION --default
   - gvm linkthis $PROJECT_PATH
   - go get -u github.com/golang/dep/cmd/dep
-  - go get -u github.com/onsi/ginkgo/ginkgo
-  - go get -u github.com/onsi/gomega/...
 
 install:
   - cd $GOPATH/src/$PROJECT_PATH && dep ensure -vendor-only
