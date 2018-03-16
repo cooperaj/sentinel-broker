@@ -6,11 +6,11 @@ before_install:
   - gvm install $GO_VERSION -B
   - gvm use $GO_VERSION --default
   - gvm linkthis $PROJECT_PATH
+  - export ABSTRUSE_BUILD_DIR=$GOPATH/src/$PROJECT_PATH
   - go get -u github.com/golang/dep/cmd/dep
 
 install:
-  - cd $GOPATH/src/$PROJECT_PATH && dep ensure -vendor-only
-  - ls $GOPATH/src/github.com
+  - dep ensure -vendor-only
 
 script:
   - go test -v ./...
