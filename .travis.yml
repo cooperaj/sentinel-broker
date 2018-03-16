@@ -8,10 +8,10 @@ env:
     secure: KxqyXvLejLpWhtC35LfoMrpydGYNfM2ld4sM0kU5mwwuRfSJawcRYimRPmxPnYPC6pQ+yTkQn2rUxwHTNVxgd/DK4PWnXudJORJatBUjPAeL0+z9fUZqqiNX0eUiJcOAiwr919yMp6i1ShyRBtDekehuScowSVRnYtQ0InjCWJ0UONmlDJjaC4uusTbzX4901Xq3TFUi1abo2vrhuF1Q9rwfHgk6BWJYfslilp36J5jI//tZIs8hr2TYEK1Kh95Cmd1U2ezFuCQQud0xh7aElLiChqr8QnS1Z8kruf7HDh7Ikrmy6A5b22xrUXjbFPBx/7z9sOqcqgDjLFeIlpKTdzYF/NNqgDGUA/qHNHokOrlWban2FyZyTR/Xq1WhkWT6ddnxvcgJaa/HRYUv/dEWMbne9BmYrrsgAZ5COueoCGkztb7f3yHQdYGncPDZjoLChmLkseHtymbjGpO8bSH424jzS37sMm6sKAYbxmfPVTU4FO43DveFhmpNUAzi9TCkLUIK9iw4ooDcNMiHOCOjXA8wSI9MeqUS8HPZQSMRkXjL/cf/HcOd25qjLYTPl3c5/wfPfeHUsZha6Ms5nodb/CaxcVutpic+9D9bYwn/S0LabrhmbD08S6FvCtuoV9Tr6+7TjfO8zG1+/wYvapeUuSq6OioSfAk0AO6H5+MnJXo=
 
 before_install:
-  - go get -u github.com/kardianos/govendor
+  - go get -u github.com/golang/dep/cmd/dep
 
 install:
-  - govendor sync -v
+  - dep ensure -vendor-only
 
 after_success:
   - '[[ $TRAVIS_BRANCH == "master" ]] && curl -X POST $BUILD_TRIGGER_URL'
