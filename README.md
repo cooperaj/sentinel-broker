@@ -60,3 +60,4 @@ $ gox -os="linux darwin" -arch="amd64 arm64" -osarch="\!darwin/arm64" -ldflags="
 $ # Have docker installed and working
 $ docker build -t cooperaj/sentinel-broker .
 ```
+
