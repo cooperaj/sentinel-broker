@@ -8,7 +8,7 @@ import (
 )
 
 // AttachSentinelToMaster Configures a sentinel to monitor a master
-func AttachSentinelToMaster(sentinel *redis.Client, masterIP string, cluster *Cluster) error {
+func AttachSentinelToMaster(sentinel Client, masterIP string, cluster *Cluster) error {
 	working, err := IsWorkingInstance(sentinel)
 
 	if err != nil || !working {
@@ -30,7 +30,7 @@ func AttachSentinelToMaster(sentinel *redis.Client, masterIP string, cluster *Cl
 }
 
 // ConfigureSentinel Configures the sentinel with settings
-func ConfigureSentinel(client *redis.Client, cluster *Cluster) error {
+func ConfigureSentinel(client Client, cluster *Cluster) error {
 	for command, rawValue := range cluster.Config.Sentinel.Config {
 		value, err := cluster.Config.ConvertToString(rawValue)
 		if err != nil {
@@ -59,7 +59,7 @@ func ConfigureSentinel(client *redis.Client, cluster *Cluster) error {
 }
 
 // ConnectToSentinel Connects to a Redis server
-func ConnectToSentinel(ip string, port string, config Config) *redis.Client {
+func ConnectToSentinel(ip string, port string, config Config) Client {
 	options := &redis.Options{
 		Addr: net.JoinHostPort(ip, port),
 	}
@@ -67,9 +67,9 @@ func ConnectToSentinel(ip string, port string, config Config) *redis.Client {
 	return ConnectToClient(options)
 }
 
-// SentinelMonitorCommand Configures sentinal intance to monitor a new master
+// SentinelMonitorCommand Configures sentinal instance to monitor a new master
 func SentinelMonitorCommand(
-	sentinel *redis.Client,
+	sentinel Client,
 	masterName string,
 	masterIP string,
 	redisPort string,
@@ -88,7 +88,7 @@ func SentinelMonitorCommand(
 
 // SentinelSetCommand Configures sentinel instance with key value
 func SentinelSetCommand(
-	client *redis.Client,
+	client Client,
 	masterName string,
 	key string,
 	value string,
